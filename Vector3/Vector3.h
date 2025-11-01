@@ -7,60 +7,72 @@
 
 struct Vector3
 {
-	Vector3() : x(0), y(0), z(0) {};
-	Vector3(float x, float y, float z) : x(x), y(y), z(z) {};
+	Vector3() : mX(0), mY(0), mZ(0) {};
+	Vector3(float mX, float mY, float mZ) : mX(mX), mY(mY), mZ(mZ) {};
 
-	float x;
-	float y;
-	float z;
+	float mX;
+	float mY;
+	float mZ;
 
-	inline Vector3 operator+(const Vector3& rhs) const
+	inline Vector3 operator+(const Vector3& rhs) const //Vector addition
 	{
-		return { x + rhs.x, y + rhs.y, z + rhs.z };
+		return { mX + rhs.mX, mY + rhs.mY, mZ + rhs.mZ };
 	}
 
-	inline Vector3 operator-(const Vector3& rhs) const
+	inline Vector3 operator-(const Vector3& rhs) const // Vector subtraction
 	{
-		return { x - rhs.x, y - rhs.y, z - rhs.z };
+		return { mX - rhs.mX, mY - rhs.mY, mZ - rhs.mZ };
 	}
 
-	inline Vector3 operator*(float scalar) const
+	inline Vector3 operator*(float scalar) const // Vector * scalar
 	{
-		return { x * scalar, y * scalar, z * scalar };
+		return { mX * scalar, mY * scalar, mZ * scalar };
 	}
 
-	friend inline Vector3 operator*(float scalar, const Vector3& rhs)
+	friend inline Vector3 operator*(float scalar, const Vector3& rhs) // Scalar * Vector
 	{
-		return { scalar * rhs.x, scalar * rhs.y, scalar * rhs.z };
+		return { scalar * rhs.mX, scalar * rhs.mY, scalar * rhs.mZ };
+	}
+	inline float operator*(Vector3& rhs) // Dot product
+	{
+		float dotP = mX * rhs.mX + mY * rhs.mY + mZ * rhs.mZ;
+		
+		return dotP;
 	}
 
-	inline bool operator==(const Vector3& rhs) const
+	inline bool operator==(const Vector3& rhs) const // Equality
 	{
 		const float EPS = 1e-6f;
 
-		return std::fabs(x - rhs.x) < EPS && std::fabs(y - rhs.y) < EPS && std::fabs(z - rhs.z) < EPS;
+		return std::fabs(mX - rhs.mX) < EPS && std::fabs(mY - rhs.mY) < EPS && std::fabs(mZ - rhs.mZ) < EPS;
+	}
+	inline bool operator!=(const Vector3& rhs) const // Not equal
+	{
+		const float EPS = 1e-6f;
+
+		return std::fabs(mX - rhs.mX) > EPS && std::fabs(mY - rhs.mY) > EPS && std::fabs(mZ - rhs.mZ) > EPS;
 	}
 
 	friend inline std::ostream& operator<<(std::ostream& os, const Vector3& rhs)
 	{
-		os << "(" << rhs.x << ", " << rhs.y << ", " << rhs.z << ")";
+		os << "(" << rhs.mX << ", " << rhs.mY << ", " << rhs.mZ << ")";
 		return os;
 	}
 
 	void normalize()
 	{
-		float length = sqrtf(x * x + y * y + z * z);
+		float length = sqrtf(mX * mX + mY * mY + mZ * mZ);
 
 		if (length != 0)
 		{
-			x / length;
-			y / length;
-			z / length;
+			mX / length;
+			mY / length;
+			mZ / length;
 		}
 	}
 	float length() const
 	{
-		return sqrtf(x * x + y * y + z * z);
+		return sqrtf(mX * mX + mY * mY + mZ * mZ);
 	}
 };
 
