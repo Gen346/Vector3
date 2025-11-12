@@ -60,21 +60,8 @@ struct Vector3
 		return os;
 	}
 
-	void normalize()
-	{
-		T length = sqrtf(mX * mX + mY * mY + mZ * mZ);
-
-		if (length != 0)
-		{
-			mX / length;
-			mY / length;
-			mZ / length;
-		}
-	}
-	T length() const
-	{
-		return sqrtf(mX * mX + mY * mY + mZ * mZ);
-	}
+	void normalize();
+	T length();
 };
 
 #endif
