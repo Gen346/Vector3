@@ -5,14 +5,15 @@
 #include <cmath>
 #include <iostream>
 
+template <typename T>
 struct Vector3
 {
 	Vector3() : mX(0), mY(0), mZ(0) {};
-	Vector3(float mX, float mY, float mZ) : mX(mX), mY(mY), mZ(mZ) {};
+	Vector3(T mX, T mY, T mZ) : mX(mX), mY(mY), mZ(mZ) {};
 
-	float mX;
-	float mY;
-	float mZ;
+	T mX;
+	T mY;
+	T mZ;
 
 	inline Vector3 operator+(const Vector3& rhs) const //Vector addition
 	{
@@ -61,7 +62,7 @@ struct Vector3
 
 	void normalize()
 	{
-		float length = sqrtf(mX * mX + mY * mY + mZ * mZ);
+		T length = sqrtf(mX * mX + mY * mY + mZ * mZ);
 
 		if (length != 0)
 		{
@@ -70,7 +71,7 @@ struct Vector3
 			mZ / length;
 		}
 	}
-	float length() const
+	T length() const
 	{
 		return sqrtf(mX * mX + mY * mY + mZ * mZ);
 	}
